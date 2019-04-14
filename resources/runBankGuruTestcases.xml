@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="BANK GURU" parallel="false">
+  <test name="RUN ON FIREFOX">
+    <classes>
+      <class name="com.bankguru.login.Login_01_ValidateLoginForm"/>
+    </classes>
+  </test>
+</suite>
