@@ -304,6 +304,23 @@ public class AbstractPage {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
+	public Object scrollToElementByJS(WebDriver driver, String locator) {
+		WebElement element = driver.findElement(By.xpath(locator));
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		return js.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+	
+	public boolean isImageDisplayed(WebDriver driver, String locator) {
+		try {
+			WebElement element = driver.findElement(By.xpath(locator));
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			return(boolean) js.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", element);
+		}catch(Exception e)
+		{
+			e.getMessage();
+			return false;
+		}
+	}
 
 	public Object navigateToUrlByJS(WebDriver driver, String url) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;

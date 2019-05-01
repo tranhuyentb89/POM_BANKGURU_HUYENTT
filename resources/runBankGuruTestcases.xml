@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="BANK GURU" parallel="false">
-  <test name="RUN ON FIREFOX">
-    <classes>
-      <class name="com.bankguru.account.Account_Level_02_ApplyAbstractPage"/>
-    </classes>
-  </test>
+	<test name="RUN ON FIREFOX">
+		<classes>
+			<class name="com.bankguru.account.Account_Level_03_PageObject"/>
+		</classes>
+	</test>
 </suite>
+
+
