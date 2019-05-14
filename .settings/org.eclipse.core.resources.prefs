@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding//testcases/com/bankguru/account/Account_Level_03_PageObject.java=UTF-8
+encoding//testcases/com/bankguru/account/Account_Level_04_PageFactory.java=UTF-8
+encoding//testcases/com/bankguru/account/Account_Level_05_PageFactoryManager_DesignPattern.java=UTF-8
