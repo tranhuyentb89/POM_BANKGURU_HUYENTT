@@ -4,13 +4,15 @@ import org.openqa.selenium.WebDriver;
 
 import bankguru.RegisterPageUI;
 import commons.AbstractPage;
+import commons.PageFactoryManage;
 
-public class RegisterPageObject extends AbstractPage{
+public class RegisterPageObject extends AbstractPage {
 	public RegisterPageObject(WebDriver maappingDriver) {
 		driver = maappingDriver;
 	}
 
 	private WebDriver driver;
+
 	public boolean isRegisterPageDisplayed() {
 		waitForElementVisible(driver, RegisterPageUI.EMAIL_ID_TEXTBOX);
 		return isControlDisplayed(driver, RegisterPageUI.EMAIL_ID_TEXTBOX);
@@ -28,7 +30,7 @@ public class RegisterPageObject extends AbstractPage{
 
 	public String getUserIDInfo() {
 		waitForElementVisible(driver, RegisterPageUI.USER_ID_TEXT);
-		return getTextElement(	driver, RegisterPageUI.USER_ID_TEXT);
+		return getTextElement(driver, RegisterPageUI.USER_ID_TEXT);
 	}
 
 	public String getPasswordInfo() {
@@ -36,8 +38,9 @@ public class RegisterPageObject extends AbstractPage{
 		return getTextElement(driver, RegisterPageUI.PASSWORD_TEXT);
 	}
 
-	public void openLoginPage(String loginPageUrl) {
+	public LoginPageObject openLoginPage(String loginPageUrl) {
 		openUrl(driver, loginPageUrl);
+		return PageFactoryManage.getLoginPage(driver);
 	}
 
 }

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import bankguru.HomePageUI;
 import commons.AbstractPage;
+import commons.PageFactoryManage;
 
 public class HomePageObject extends AbstractPage{
 	public HomePageObject(WebDriver mappingDriver) {
@@ -22,5 +23,12 @@ public class HomePageObject extends AbstractPage{
 		waitForElementVisible(driver, USER_ID_FORMAT);
 		return isControlDisplayed(driver, USER_ID_FORMAT);
 	}
-
+	
+	public LoginPageObject clickToLougoutLink() {
+		waitForElementVisible(driver, HomePageUI.LOGOUT_LINK);
+		clickToElement(driver, HomePageUI.LOGOUT_LINK);
+		waitForAlertPresence(driver);
+		acceptAlert(driver);
+		return PageFactoryManage.getLoginPage(driver);
+	}
 }

@@ -2,6 +2,7 @@ package com.bankguru.account;
 
 import org.testng.annotations.Test;
 
+import commons.PageFactoryManage;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.RegisterPageObject;
@@ -16,7 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Account_Level_05_PageFactoryManager_DesignPattern {
+public class Account_Level_05_PageFactoryManager_SingletonPattern {
 	WebDriver driver;
 	private String email, userID, password, loginPageUrl;
 	LoginPageObject loginPage;
@@ -30,8 +31,8 @@ public class Account_Level_05_PageFactoryManager_DesignPattern {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		email = "tranhuyentb89" + ramdomNumber() + "@gmail.com";
-		loginPage = new LoginPageObject(driver);
-
+		//loginPage = new LoginPageObject(driver);
+		loginPage = PageFactoryManage.getLoginPage(driver);
 	}
 
 	@Test
@@ -41,8 +42,6 @@ public class Account_Level_05_PageFactoryManager_DesignPattern {
 		Assert.assertTrue(loginPage.isLoginFormDisplayed());
 		loginPageUrl = loginPage.getLoginPageUrl();
 		registerPage = loginPage.clickToHereLink();
-		//registerPage = new RegisterPageObject(driver);
-
 		Assert.assertTrue(registerPage.isRegisterPageDisplayed());
 		registerPage.inputToEmailTextbox(email);
 		registerPage.clickToLoginButton();
@@ -52,16 +51,19 @@ public class Account_Level_05_PageFactoryManager_DesignPattern {
 
 	@Test
 	public void TC_02_LoginWithAboveInfo() {
-		registerPage.openLoginPage(loginPageUrl);
+		loginPage= registerPage.openLoginPage(loginPageUrl);
 		//loginPage = new LoginPageObject(driver);
 		Assert.assertTrue(loginPage.isLoginFormDisplayed());
 		loginPage.inputToUserIDTextbox(userID);
 		loginPage.inputToPasswordTextbox(password);
-		loginPage.clickToLoginButton();
+		homePage= loginPage.clickToLoginButton();
 
-		homePage = new HomePageObject(driver);
 		Assert.assertTrue(homePage.isWelcomeMsgDisplayed());
 		Assert.assertTrue(homePage.isUserIDisplayed(userID));
+		
+		//Logout
+		loginPage = homePage.clickToLougoutLink();
+		Assert.assertTrue(loginPage.isLoginFormDisplayed());
 
 	}
 
