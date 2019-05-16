@@ -40,7 +40,7 @@ public class Account_Level_06_MultiBrowser_ParallelTesting {
 			ChromeOptions options = new ChromeOptions();
 			options.addArguments("window-size=1366x768");
 			options.addArguments("headless");
-			driver = new ChromeDriver();
+			driver = new ChromeDriver(options);
 		}
 		driver.get("http://demo.guru99.com/v4/");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
