@@ -7,19 +7,19 @@
 		</classes>
 	</test>
 
-	<test name="RUN ON CHROME">
-		<parameter name="browser" value="chrome" />
-		<classes>
-			<class name="com.bankguru.account.Account_Level_06_MultiBrowser_ParallelTesting" />
-		</classes>
-	</test>
+<!-- 	<test name="RUN ON CHROME"> -->
+<!-- 		<parameter name="browser" value="chrome" /> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.bankguru.account.Account_Level_06_MultiBrowser_ParallelTesting" /> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
-	<test name="RUN ON CHROME HEADLESS">
-		<parameter name="browser" value="chromeheadless" />
-		<classes>
-			<class name="com.bankguru.account.Account_Level_06_MultiBrowser_ParallelTesting" />
-		</classes>
-	</test>
+<!-- 	<test name="RUN ON CHROME HEADLESS"> -->
+<!-- 		<parameter name="browser" value="chromeheadless" /> -->
+<!-- 		<classes> -->
+<!-- 			<class name="com.bankguru.account.Account_Level_06_MultiBrowser_ParallelTesting" /> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
 
 </suite>
 
