@@ -13,6 +13,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import bankguru.AbstractPageUI;
+import pageObjects.ChangePasswordPageObject;
+import pageObjects.DepositPageObject;
+import pageObjects.NewAccountPageObject;
+import pageObjects.NewCustomerPageObject;
+
 public class AbstractPage {
 	WebDriverWait explicit;
 	By byLocator;
@@ -68,9 +74,11 @@ public class AbstractPage {
 	public String getTextElement(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.getText();
-		
+
 	}
+
 	public void clickToElement(WebDriver driver, String locator) {
+		highlightElement(driver, locator);
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.click();
 	}
@@ -159,6 +167,7 @@ public class AbstractPage {
 	}
 
 	public boolean isControlDisplayed(WebDriver driver, String locator) {
+		highlightElement(driver, locator);
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isDisplayed();
 	}
@@ -174,6 +183,7 @@ public class AbstractPage {
 	}
 
 	public void doubleClickToElement(WebDriver driver, String locator) {
+		highlightElement(driver, locator);
 		WebElement element = driver.findElement(By.xpath(locator));
 		Actions action = new Actions(driver);
 		action.doubleClick(element);
@@ -185,7 +195,7 @@ public class AbstractPage {
 		Actions action = new Actions(driver);
 		action.moveToElement(element);
 	}
-	
+
 	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		Actions action = new Actions(driver);
@@ -271,10 +281,21 @@ public class AbstractPage {
 		element.sendKeys(filePath01 + "\n" + filePath02 + "\n" + filePath03);
 	}
 
-	public void highlightElement(WebDriver driver, String xpathName) {
-		WebElement element = driver.findElement(By.xpath(xpathName));
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].style.border='6px groove red'", element);
+	public void highlightElement(WebDriver driver, String locator) {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		WebElement element = driver.findElement(By.xpath(locator));
+		String originalStyle = element.getAttribute(locator);
+		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element,
+				"style","border:3px solid red; border-style:dashed;");
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element,
+				"style",originalStyle);
+
 	}
 
 	public Object executeForBrowser(WebDriver driver, String javaSript) {
@@ -284,6 +305,7 @@ public class AbstractPage {
 
 	public Object clickToElementByJS(WebDriver driver, String xpathName) {
 		WebElement element = driver.findElement(By.xpath(xpathName));
+		highlightElement(driver,xpathName);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("arguments[0].click();", element);
 	}
@@ -304,19 +326,19 @@ public class AbstractPage {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
+
 	public Object scrollToElementByJS(WebDriver driver, String locator) {
 		WebElement element = driver.findElement(By.xpath(locator));
-		JavascriptExecutor js = (JavascriptExecutor)driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
-	
+
 	public boolean isImageDisplayed(WebDriver driver, String locator) {
 		try {
 			WebElement element = driver.findElement(By.xpath(locator));
 			JavascriptExecutor js = (JavascriptExecutor) driver;
-			return(boolean) js.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", element);
-		}catch(Exception e)
-		{
+			return (boolean) js.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", element);
+		} catch (Exception e) {
 			e.getMessage();
 			return false;
 		}
@@ -338,22 +360,48 @@ public class AbstractPage {
 		byLocator = By.xpath(locator);
 		explicit.until(ExpectedConditions.visibilityOfElementLocated(byLocator));
 	}
-	
+
 	public void waitForElementClickAble(WebDriver driver, String locator) {
 		explicit = new WebDriverWait(driver, longTimeout);
 		byLocator = By.xpath(locator);
 		explicit.until(ExpectedConditions.elementToBeClickable(byLocator));
 
 	}
-	
+
 	public void waitForElementInvisible(WebDriver driver, String locator) {
 		explicit = new WebDriverWait(driver, longTimeout);
 		byLocator = By.xpath(locator);
 		explicit.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
 	}
-	
+
 	public void waitForAlertPresence(WebDriver driver) {
 		explicit = new WebDriverWait(driver, longTimeout);
 		explicit.until(ExpectedConditions.alertIsPresent());
 	}
+
+	// open page
+	public ChangePasswordPageObject openChangePasswordPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.CHANGE_PASSWORD_LINK);
+		clickToElement(driver, AbstractPageUI.CHANGE_PASSWORD_LINK);
+		return PageFactoryManage.getChangPasswordPage(driver);
+	}
+
+	public DepositPageObject openDepositPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.DEPOSIT_LINK);
+		clickToElement(driver, AbstractPageUI.DEPOSIT_LINK);
+		return PageFactoryManage.getDepositPage(driver);
+	}
+
+	public NewAccountPageObject openNewAccountPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_ACCOUNT_LINK);
+		return PageFactoryManage.getNewAccountPage(driver);
+	}
+
+	public NewCustomerPageObject openNewCustomerPage(WebDriver driver) {
+		waitToElementVisible(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		return PageFactoryManage.getNewCustomerPage(driver);
+	}
+
 }

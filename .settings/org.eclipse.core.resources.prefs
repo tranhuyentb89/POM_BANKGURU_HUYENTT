@@ -3,3 +3,4 @@ encoding//testcases/com/bankguru/account/Account_Level_03_PageObject.java=UTF-8
 encoding//testcases/com/bankguru/account/Account_Level_04_PageFactory.java=UTF-8
 encoding//testcases/com/bankguru/account/Account_Level_05_PageFactoryManager_SingletonPattern.java=UTF-8
 encoding//testcases/com/bankguru/account/Account_Level_06_MultiBrowser_ParallelTesting.java=UTF-8
+encoding//testcases/com/bankguru/account/Account_Level_07_WebDriver_LifeCycle.java=UTF-8

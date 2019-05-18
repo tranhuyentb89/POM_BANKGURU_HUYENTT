@@ -1,25 +1,34 @@
 package com.bankguru.account;
 
-import java.util.Random;
-
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
+import pageObjects.ChangePasswordPageObject;
+import pageObjects.DepositPageObject;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
+import pageObjects.NewAccountPageObject;
+import pageObjects.NewCustomerPageObject;
 import pageObjects.RegisterPageObject;
 
-public class Account_Level_06_MultiBrowser_ParallelTesting extends AbstractTest{
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+
+import java.util.Random;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+
+public class Account_Level_07_WebDriver_LifeCycle extends AbstractTest{
 	WebDriver driver;
 	private String email, userID, password, loginPageUrl;
 	LoginPageObject loginPage;
 	RegisterPageObject registerPage;
 	HomePageObject homePage;
+	ChangePasswordPageObject changePwPage;
+	DepositPageObject depositPage;
+	NewAccountPageObject newAccountPage;
+	NewCustomerPageObject newCustomerPage;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -57,12 +66,17 @@ public class Account_Level_06_MultiBrowser_ParallelTesting extends AbstractTest{
 		Assert.assertTrue(homePage.isUserIDisplayed(userID));
 
 		// Logout
-		loginPage = homePage.clickToLougoutLink();
-		Assert.assertTrue(loginPage.isLoginFormDisplayed());
+//		loginPage = homePage.clickToLougoutLink();
+//		Assert.assertTrue(loginPage.isLoginFormDisplayed());
 
 	}
-
-
+	@Test
+	public void TC_03_OpenMultiPage() {
+		changePwPage = homePage.openChangePasswordPage(driver);
+		depositPage = changePwPage.openDepositPage(driver);
+		newAccountPage= depositPage.openNewAccountPage(driver);
+		newCustomerPage = newAccountPage.openNewCustomerPage(driver);
+	}
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
