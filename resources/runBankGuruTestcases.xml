@@ -3,7 +3,7 @@
 	<test name="RUN ON FIREFOX">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.bankguru.account.Account_Level_07_WebDriver_LifeCycle" />
+			<class name="com.bankguru.account.Account_Level_08_DynamicLocator_RestParam" />
 		</classes>
 	</test>
 

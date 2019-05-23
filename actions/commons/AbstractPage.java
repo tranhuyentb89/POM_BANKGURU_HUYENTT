@@ -77,6 +77,13 @@ public class AbstractPage {
 
 	}
 
+	public String getTextElement(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		WebElement element = driver.findElement(By.xpath(locator));
+		return element.getText();
+
+	}
+
 	public void clickToElement(WebDriver driver, String locator) {
 		highlightElement(driver, locator);
 		WebElement element = driver.findElement(By.xpath(locator));
@@ -87,6 +94,14 @@ public class AbstractPage {
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.clear();
 		element.sendKeys(value);
+	}
+
+	public void sendKeyToElement(WebDriver driver, String locator, String valueToSendkeys, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		highlightElement(driver, locator);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.clear();
+		element.sendKeys(valueToSendkeys);
 	}
 
 	public void selectItemInHtmlDropdown(WebDriver driver, String locator, String value) {
@@ -101,7 +116,8 @@ public class AbstractPage {
 		return select.getFirstSelectedOption().getText();
 	}
 
-	public void selectItemInCustomDropdown(WebDriver driver, String scrollXpath, String parentXpath, String childXpath, String expectedValue) throws Exception {
+	public void selectItemInCustomDropdown(WebDriver driver, String scrollXpath, String parentXpath, String childXpath,
+			String expectedValue) throws Exception {
 		// scroll toi element (cha)
 		JavascriptExecutor javascript;
 		javascript = (JavascriptExecutor) driver;
@@ -167,6 +183,13 @@ public class AbstractPage {
 	}
 
 	public boolean isControlDisplayed(WebDriver driver, String locator) {
+		highlightElement(driver, locator);
+		WebElement element = driver.findElement(By.xpath(locator));
+		return element.isDisplayed();
+	}
+
+	public boolean isControlDisplayed(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
 		highlightElement(driver, locator);
 		WebElement element = driver.findElement(By.xpath(locator));
 		return element.isDisplayed();
@@ -276,25 +299,25 @@ public class AbstractPage {
 		element.sendKeys(filePath);
 	}
 
-	public void uploadmultiFile(WebDriver driver, String locator, String filePath01, String filePath02, String filePath03) {
+	public void uploadmultiFile(WebDriver driver, String locator, String filePath01, String filePath02,
+			String filePath03) {
 		WebElement element = driver.findElement(By.xpath(locator));
 		element.sendKeys(filePath01 + "\n" + filePath02 + "\n" + filePath03);
 	}
 
 	public void highlightElement(WebDriver driver, String locator) {
-		JavascriptExecutor js = (JavascriptExecutor)driver;
+		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebElement element = driver.findElement(By.xpath(locator));
 		String originalStyle = element.getAttribute(locator);
-		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element,
-				"style","border:3px solid red; border-style:dashed;");
+		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, "style",
+				"border:3px solid red; border-style:dashed;");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element,
-				"style",originalStyle);
+		js.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, "style", originalStyle);
 
 	}
 
@@ -305,7 +328,7 @@ public class AbstractPage {
 
 	public Object clickToElementByJS(WebDriver driver, String xpathName) {
 		WebElement element = driver.findElement(By.xpath(xpathName));
-		highlightElement(driver,xpathName);
+		highlightElement(driver, xpathName);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		return js.executeScript("arguments[0].click();", element);
 	}
@@ -337,7 +360,9 @@ public class AbstractPage {
 		try {
 			WebElement element = driver.findElement(By.xpath(locator));
 			JavascriptExecutor js = (JavascriptExecutor) driver;
-			return (boolean) js.executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", element);
+			return (boolean) js.executeScript(
+					"return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0",
+					element);
 		} catch (Exception e) {
 			e.getMessage();
 			return false;
@@ -402,6 +427,42 @@ public class AbstractPage {
 		waitToElementVisible(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
 		clickToElement(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
 		return PageFactoryManage.getNewCustomerPage(driver);
+	}
+
+	public AbstractPage openMultiplePage(WebDriver driver, String pageName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		switch (pageName) {
+		case "Manager":
+			return PageFactoryManage.getHomePage(driver);
+		case "Deposit":
+			return PageFactoryManage.getDepositPage(driver);
+		case "Change Password":
+			return PageFactoryManage.getChangPasswordPage(driver);
+		case "New Customer":
+			return PageFactoryManage.getNewCustomerPage(driver);
+		default:
+			return PageFactoryManage.getHomePage(driver);
+		}
+	}
+
+	private void clickToElement(WebDriver driver, String locator, String... values) {
+		locator = String.format(locator, (Object[]) values);
+		highlightElement(driver, locator);
+		WebElement element = driver.findElement(By.xpath(locator));
+		element.click();
+	}
+
+	private void waitForElementVisible(WebDriver driver, String locator, String... dynamicValue) {
+		locator = String.format(locator, (Object[]) dynamicValue);
+		explicit = new WebDriverWait(driver, longTimeout);
+		byLocator = By.xpath(locator);
+		explicit.until(ExpectedConditions.visibilityOfElementLocated(byLocator));
+	}
+	
+	public void openMultiplePages(WebDriver driver, String pageName) {
+		waitToElementVisible(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		clickToElement(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
 	}
 
 }
