@@ -1,8 +1,11 @@
 package commons;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.jetty.html.Element;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -288,9 +291,41 @@ public class AbstractPage {
 	}
 
 	public void waitToElementInvisible(WebDriver driver, String locator) {
-		WebDriverWait explicitwait = new WebDriverWait(driver, 30);
+		Date date = new Date();
 		By byLocator = By.xpath(locator);
-		explicitwait.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
+		WebDriverWait waitExplicit = new WebDriverWait(driver, Constants.SHORT_TIMEOUT);
+		System.out.println("start time for wait invisible = " + date.toString());
+		waitExplicit.until(ExpectedConditions.invisibilityOfElementLocated(byLocator));
+		System.out.println("End time for wait invisible = " + new Date().toString());
+	}
+	
+	public boolean isControlUndisplayed(WebDriver driver, String locator) {
+		Date date = new Date();
+		System.out.println("Start time to check control undisplayed " + date.toString());
+		overideTimeout(driver, Constants.SHORT_TIMEOUT);
+		List <WebElement> elements = driver.findElements(By.xpath(locator));
+		System.out.println("Element size = : " + elements.size());
+		if(elements.size()==0) {
+			System.out.println("Element khong co trong DOM");
+			System.out.println("End time to check control undisplayed	= " + new Date().toString());
+			overideTimeout(driver, Constants.LONG_TIMEOUT);
+			return true;
+		}
+		else if(elements.size()>0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element co trong DOM nhung ko visible");
+			System.out.println("End time to check control undisplayed	= " + new Date().toString());
+			overideTimeout(driver, Constants.LONG_TIMEOUT);
+			return true;
+		}
+		else {
+			System.out.println("Element co trong dom nhung visible");
+			System.out.println("End time to check control undisplayed	= " + new Date().toString());
+			overideTimeout(driver, Constants.LONG_TIMEOUT);
+			return false;
+		}
+	}
+	public void overideTimeout(WebDriver driver, long timeout) {
+		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
 	}
 
 	// UPLOAD
@@ -461,8 +496,8 @@ public class AbstractPage {
 	}
 	
 	public void openMultiplePages(WebDriver driver, String pageName) {
-		waitToElementVisible(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
-		clickToElement(driver, AbstractPageUI.NEW_CUSTOMER_LINK);
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_LINK, pageName);
 	}
 
 }

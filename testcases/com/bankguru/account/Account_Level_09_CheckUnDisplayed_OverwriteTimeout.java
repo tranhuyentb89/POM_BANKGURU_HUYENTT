@@ -20,7 +20,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Account_Level_08_DynamicLocator_RestParam extends AbstractTest {
+public class Account_Level_09_CheckUnDisplayed_OverwriteTimeout extends AbstractTest {
 	WebDriver driver;
 	private String email, userID, password, loginPageUrl;
 	LoginPageObject loginPage;
@@ -63,36 +63,16 @@ public class Account_Level_08_DynamicLocator_RestParam extends AbstractTest {
 		loginPage.inputToPasswordTextbox(password);
 		homePage = loginPage.clickToLoginButton();
 
-		Assert.assertTrue(homePage.isWelcomeMsgDisplayed());
-		Assert.assertTrue(homePage.isUserIDisplayed(userID));
-
+		boolean homePageStatus = homePage.isWelcomeMsgDisplayed();
+		System.out.println("Home Page status =" + homePageStatus);
+		
+		boolean loginFormStatus = homePage.isLoginFormUndisplayed();
+		System.out.println("Login form status =" + loginFormStatus);
+		
 		// Logout
 		// loginPage = homePage.clickToLougoutLink();
 		// Assert.assertTrue(loginPage.isLoginFormDisplayed());
 
-	}
-
-	//@Test
-	public void TC_03_OpenMultiPages() {
-		depositPage = (DepositPageObject) homePage.openMultiplePage(driver, "Deposit");
-
-		homePage = (HomePageObject) depositPage.openMultiplePage(driver, "Manager");
-
-		changePwPage = (ChangePasswordPageObject) homePage.openMultiplePage(driver, "Change Password");
-
-		newCustomerPage = (NewCustomerPageObject) changePwPage.openMultiplePage(driver, "New Customer");
-	}
-	// too many pages
-	@Test
-	public void TC_04_OpenMultiplePage() {
-		homePage.openMultiplePages(driver, "New Customer");
-		newCustomerPage = PageFactoryManage.getNewCustomerPage(driver);
-		
-		newCustomerPage.openMultiplePages(driver, "Deposit");
-		depositPage = PageFactoryManage.getDepositPage(driver);
-		
-		depositPage.openMultiplePages(driver, "Change Password");
-		changePwPage = PageFactoryManage.getChangPasswordPage(driver);
 	}
 	@AfterClass
 	public void afterClass() {

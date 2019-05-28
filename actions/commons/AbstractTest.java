@@ -23,7 +23,7 @@ public class AbstractTest {
 			driver = new ChromeDriver(options);
 		}
 		driver.get("http://demo.guru99.com/v4/");
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Constants.LONG_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		return driver;
 	}

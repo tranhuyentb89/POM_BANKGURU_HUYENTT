@@ -10,7 +10,6 @@ public class DepositPageObject extends AbstractPage{
 	public DepositPageObject(WebDriver mappingDriver) {
 		driver = mappingDriver;
 	}
-
 	private WebDriver driver;
 
 }
