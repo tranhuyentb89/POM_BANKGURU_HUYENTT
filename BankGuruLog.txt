@@ -1,0 +1,17 @@
+2019-05-31 00:38:09,792 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Register - Step 01: Verify Login form displayed
+2019-05-31 00:38:13,344 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - ===PASSED==
+2019-05-31 00:38:13,346 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Register - Step 02: Get URL of Login form
+2019-05-31 00:38:13,355 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Register - Step 03: Click to here link
+2019-05-31 00:38:19,121 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Register - Step 04: Verify Register page is displayed
+2019-05-31 00:38:22,258 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - ===FAILED===
+2019-05-31 00:38:22,260 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Register - Step 05: Input email and click to Login button
+2019-05-31 00:38:28,211 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Register - Step 06: Get username and password
+2019-05-31 00:38:28,673 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Login - Step 01: Open login form
+2019-05-31 00:38:30,180 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Login - Step 02: Verify login form dislayed
+2019-05-31 00:38:33,640 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - ===PASSED==
+2019-05-31 00:38:33,640 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Login - Step 03: Input username and password
+2019-05-31 00:38:34,191 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Login - Step 04: Click to login button
+2019-05-31 00:38:37,964 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Login - Step 05: Verify welcome message displayed
+2019-05-31 00:38:42,508 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - ===PASSED==
+2019-05-31 00:38:42,509 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - Login - Step 06: Verify login form displayed
+2019-05-31 00:39:18,004 INFO  com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML - ===PASSED==

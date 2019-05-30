@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="BANK GURU" parallel="tests" thread-count="3">
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+	</listeners>
 	<test name="RUN ON FIREFOX">
 		<parameter name="browser" value="firefox" />
 		<classes>
@@ -7,19 +11,19 @@
 		</classes>
 	</test>
 
-<!-- 	<test name="RUN ON CHROME"> -->
-<!-- 		<parameter name="browser" value="chrome" /> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.bankguru.account.Account_Level_06_MultiBrowser_ParallelTesting" /> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
-
-<!-- 	<test name="RUN ON CHROME HEADLESS"> -->
-<!-- 		<parameter name="browser" value="chromeheadless" /> -->
-<!-- 		<classes> -->
-<!-- 			<class name="com.bankguru.account.Account_Level_06_MultiBrowser_ParallelTesting" /> -->
-<!-- 		</classes> -->
-<!-- 	</test> -->
+<!-- 	<test name="RUN ON CHROME">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.bankguru.account.Account_Level_09_CheckUnDisplayed_OverwriteTimeout" />
+		</classes>
+	</test>
+ -->
+	<!-- <test name="RUN ON CHROME HEADLESS"> -->
+	<!-- <parameter name="browser" value="chromeheadless" /> -->
+	<!-- <classes> -->
+	<!-- <class name="com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML" /> -->
+	<!-- </classes> -->
+	<!-- </test> -->
 
 </suite>
 
