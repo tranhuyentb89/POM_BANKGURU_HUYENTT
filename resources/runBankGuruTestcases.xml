@@ -3,7 +3,7 @@
 	<test name="RUN ON FIREFOX">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.bankguru.account.Account_Level_09_CheckUnDisplayed_OverwriteTimeout" />
+			<class name="com.bankguru.account.Account_Level_10_Assert_Verify_LogReportHTML" />
 		</classes>
 	</test>
 
