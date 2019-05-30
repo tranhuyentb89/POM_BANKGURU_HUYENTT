@@ -1,9 +1,15 @@
 package com.bankguru.account;
 
+import java.util.Random;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.AbstractTest;
-import commons.PageFactoryManage;
 import pageObjects.ChangePasswordPageObject;
 import pageObjects.DepositPageObject;
 import pageObjects.HomePageObject;
@@ -11,14 +17,6 @@ import pageObjects.LoginPageObject;
 import pageObjects.NewAccountPageObject;
 import pageObjects.NewCustomerPageObject;
 import pageObjects.RegisterPageObject;
-
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-
-import java.util.Random;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 
 public class Account_Level_09_CheckUnDisplayed_OverwriteTimeout extends AbstractTest {
 	WebDriver driver;
@@ -42,8 +40,6 @@ public class Account_Level_09_CheckUnDisplayed_OverwriteTimeout extends Abstract
 
 	@Test
 	public void TC_01_Register() {
-		// khoi tạo login page để map driver giữa 2 tầng
-		// loginPage = new LoginPageObject(driver);
 		Assert.assertTrue(loginPage.isLoginFormDisplayed());
 		loginPageUrl = loginPage.getLoginPageUrl();
 		registerPage = loginPage.clickToHereLink();
